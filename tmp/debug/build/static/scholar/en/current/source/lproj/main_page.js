@@ -51,40 +51,80 @@ Scholar.mainPage = SC.Page.design({
       
       dividerView: SC.SplitDividerView,
            
-      bottomRightView: SC.View.design({
-        childViews: 'firstName lastName dateOfBirth cellNumber toolbar'.w(),
-        backgroundColor: 'white',
+      bottomRightView: SC.ContainerView.design({
+         nowShowingBinding: 'Scholar.directoryController.nowShowing'
+      })
+    })
+  }),
+  
+  showDetails: SC.View.design({
+    childViews: 'firstName lastName dateOfBirth cellNumber toolbar'.w(),
+    backgroundColor: 'white',
 
-        firstName: SC.LabelView.design({
-          valueBinding: "Scholar.learnerController.firstName",
-          layout: { left: 5, top: 5 },
-          tagName: 'p'
-        }),
-        lastName: SC.LabelView.design({
-          valueBinding: "Scholar.learnerController.lastName",
-          layout: { left: 5, top: 25 },
-          tagName: 'p'
-        }),
-        dateOfBirth: SC.LabelView.design({
-          valueBinding: "Scholar.learnerController.dateOfBirth",
-          layout: { left: 5, top: 45 },
-          tagName: 'p'
-        }),
-        cellNumber: SC.LabelView.design({
-          valueBinding: "Scholar.learnerController.cellNumber",
-          layout: { left: 5, top: 65 },
-          tagName: 'p'
-        }),
-        toolbar: SC.ToolbarView.design({
-          anchorLocation: SC.ANCHOR_BOTTOM,
-          childViews: 'editLearner'.w(),
-          
-          editLearner: SC.ButtonView.design({
-            layout: { width: 50, top: 4, left: 7 },
-            titleMinWidth: 0,
-            title: 'Edit'
-          })
-        })
+    firstName: SC.LabelView.design({
+      valueBinding: "Scholar.learnerController.firstName",
+      layout: { left: 10, top: 5 },
+      tagName: 'p'
+    }),
+    lastName: SC.LabelView.design({
+      valueBinding: "Scholar.learnerController.lastName",
+      layout: { left: 10, top: 25 },
+      tagName: 'p'
+    }),
+    dateOfBirth: SC.LabelView.design({
+      valueBinding: "Scholar.learnerController.dateOfBirth",
+      layout: { left: 10, top: 45 },
+      tagName: 'p'
+    }),
+    cellNumber: SC.LabelView.design({
+      valueBinding: "Scholar.learnerController.cellNumber",
+      layout: { left: 10, top: 65 },
+      tagName: 'p'
+    }),
+    toolbar: SC.ToolbarView.design({
+      anchorLocation: SC.ANCHOR_BOTTOM,
+      childViews: 'editLearner'.w(),
+      
+      editLearner: SC.ButtonView.design({
+        layout: { width: 50, top: 4, left: 7 },
+        titleMinWidth: 0,
+        title: 'Edit',
+        action: "editDetails",
+        target: "Scholar.directoryController"
+      })
+    })
+  }),
+  
+  editDetails: SC.View.design({
+    childViews: 'firstName lastName dateOfBirth cellNumber toolbar'.w(),
+    backgroundColor: 'white',
+
+    firstName: SC.TextFieldView.design({
+      valueBinding: "Scholar.learnerController.firstName",
+      layout: { height: 21, top: 5, left: 10, width: 100 }
+    }),
+    lastName: SC.TextFieldView.design({
+      valueBinding: "Scholar.learnerController.lastName",
+      layout: { height: 21, top: 27, left: 10, width: 100 }
+    }),
+    dateOfBirth: SC.TextFieldView.design({
+      valueBinding: "Scholar.learnerController.dateOfBirth",
+      layout: { height: 21, top: 49, left: 10, width: 100 }
+    }),
+    cellNumber: SC.TextFieldView.design({
+      valueBinding: "Scholar.learnerController.cellNumber",
+      layout: { height: 21, top: 71, left: 10, width: 100 }
+    }),
+    toolbar: SC.ToolbarView.design({
+      anchorLocation: SC.ANCHOR_BOTTOM,
+      childViews: 'showLearner'.w(),
+      
+      showLearner: SC.ButtonView.design({
+        layout: { width: 50, top: 4, left: 7 },
+        titleMinWidth: 0,
+        title: 'Done',
+        action: "showDetails",
+        target: "Scholar.directoryController"
       })
     })
   })
