@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=8" />
+    <meta http-equiv="Content-Script-Type" content="text/javascript" />
+    <title>Scholar</title>
+  <script type="text/javascript">
+  var SC = SC || {};
+SC.browser = (function() {
+  var userAgent = navigator.userAgent.toLowerCase();
+  var version = (userAgent.match( /.+(?:rv|it|ra|ie)[\/: ]([\d.]+)/ ) || [])[1] ;
+
+  var browser = {
+    version: version,
+    safari: (/webkit/).test( userAgent ) ? version : 0,
+    opera: (/opera/).test( userAgent ) ? version : 0,
+    msie: (/msie/).test( userAgent ) && !(/opera/).test( userAgent ) ? version : 0,
+    mozilla: (/mozilla/).test( userAgent ) && !(/(compatible|webkit)/).test( userAgent ) ? version : 0,
+    mobileSafari: (/apple.*mobile.*safari/).test(userAgent) ? version : 0,
+    windows: !!(/(windows)/).test(userAgent),
+    mac: !!((/(macintosh)/).test(userAgent) || (/(mac os x)/).test(userAgent)),
+    language: ((navigator.language || navigator.browserLanguage).split('-', 1)[0])
+  };
+  
+    browser.current = (browser.msie) ? 'msie' : (browser.mozilla) ? 'mozilla' : (browser.safari) ? 'safari' : (browser.opera) ? 'opera' : 'unknown' ;
+  return browser ;
+})();
+
+SC.setupBodyClassNames = function() {
+  var el = document.body ;
+  var browser, platform, shadows, borderRad, classNames;
+  if (!el) return ;
+  browser = SC.browser.current ;
+  platform = (SC.browser.windows) ? 'windows' : (SC.browser.mac) ? 'mac' : 'other-platform' ;
+  
+  shadows = (document.documentElement.style.MozBoxShadow !== undefined) || 
+                (document.documentElement.style.webkitBoxShadow !== undefined) ||
+                (document.documentElement.style.oBoxShadow !== undefined) ||
+                (document.documentElement.style.boxShadow !== undefined);
+  
+  borderRad = (document.documentElement.style.MozBorderRadius !== undefined) || 
+              (document.documentElement.style.webkitBorderRadius !== undefined) ||
+              (document.documentElement.style.oBorderRadius !== undefined) ||
+              (document.documentElement.style.borderRadius !== undefined);
+  
+  
+  classNames = (el.className) ? el.className.split(' ') : [] ;
+  if(shadows) classNames.push('box-shadow');
+  if(borderRad) classNames.push('border-rad');
+  classNames.push(browser) ;
+  classNames.push(platform) ;
+  if (SC.browser.mobileSafari) classNames.push('mobile-safari') ;
+  el.className = classNames.join(' ') ;
+} ;
+
+
+  </script>
+     <link href="/static/sproutcore/testing/en/current/stylesheet.css?1249464890" rel="stylesheet" type="text/css" />
+  <link href="/static/sproutcore/foundation/en/current/stylesheet.css?1249464889" rel="stylesheet" type="text/css" />
+  <link href="/static/sproutcore/desktop/en/current/stylesheet.css?1249464889" rel="stylesheet" type="text/css" />
+  <link href="/static/sproutcore/standard_theme/en/current/stylesheet.css?1249464890" rel="stylesheet" type="text/css" />
+   
+  </head>
+    
+  <body class="sc-theme focus">  
+    <script type="text/javascript">
+    if (SC.setupBodyClassNames) SC.setupBodyClassNames() ;
+
+    </script>
+
+<div id="loading">
+<p class="loading">Loading...<p>
+
+
+</div>
+  <script type="text/javascript" src="/static/sproutcore/debug/en/current/javascript.js?1249464889"></script>
+  <script type="text/javascript" src="/static/sproutcore/testing/en/current/javascript.js?1249464890"></script>
+  <script type="text/javascript" src="/static/sproutcore/runtime/en/current/javascript.js?1249464890"></script>
+  <script type="text/javascript" src="/static/sproutcore/datastore/en/current/javascript.js?1249464889"></script>
+  <script type="text/javascript" src="/static/sproutcore/foundation/en/current/javascript.js?1249464890"></script>
+  <script type="text/javascript" src="/static/sproutcore/desktop/en/current/javascript.js?1249464889"></script>
+  <script type="text/javascript" src="/static/sproutcore/en/current/javascript.js?1249464890"></script>
+  <script type="text/javascript" src="/static/scholar/en/current/source/lproj/strings.js?1250057099"></script>
+  <script type="text/javascript" src="/static/scholar/en/current/source/core.js?1250057099"></script>
+  <script type="text/javascript" src="/static/scholar/en/current/source/controllers/learner.js?1250095705"></script>
+  <script type="text/javascript" src="/static/scholar/en/current/source/controllers/learners.js?1250058167"></script>
+  <script type="text/javascript" src="/static/scholar/en/current/source/models/learner.js?1250059844"></script>
+  <script type="text/javascript" src="/static/scholar/en/current/source/fixtures/learner.js?1250180333"></script>
+  <script type="text/javascript" src="/static/scholar/en/current/source/lproj/main_page.js?1250232096"></script>
+  <script type="text/javascript" src="/static/scholar/en/current/source/main.js?1250058409"></script>
+<script type="text/javascript">String.preferredLanguage = "en";</script>
+	</body>
+</html>
