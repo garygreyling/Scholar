@@ -13,12 +13,12 @@
 Scholar.directoryController = SC.ObjectController.create(
 /** @scope Scholar.directoryController.prototype */ {
 
-  nowShowing: 'showDetails',
+  nowShowing: 'Scholar.directoryPage.showDetails',
   
   showDetails: function() {
-    this.set('nowShowing', 'showDetails');    
+    this.set('nowShowing', 'Scholar.directoryPage.showDetails');    
   },
   editDetails: function() {
-    this.set('nowShowing', 'editDetails');    
+    this.set('nowShowing', 'Scholar.directoryPage.editDetails');    
   },
 }) ;
