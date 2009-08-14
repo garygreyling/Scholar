@@ -37,7 +37,14 @@ Scholar.mainPage = SC.Page.design({
             contentValueKey: 'surnameWithInitials'
           }),
           toolbar: SC.ToolbarView.design({
-            anchorLocation: SC.ANCHOR_BOTTOM
+            anchorLocation: SC.ANCHOR_BOTTOM,
+            childViews: 'addLearner'.w(),
+            
+            addLearner: SC.ButtonView.design({
+              layout: { width: 50, top: 4, left: 4 },
+              titleMinWidth: 0,
+              title: 'Add'
+            })
           })
         })
       }),
@@ -69,7 +76,14 @@ Scholar.mainPage = SC.Page.design({
           tagName: 'p'
         }),
         toolbar: SC.ToolbarView.design({
-          anchorLocation: SC.ANCHOR_BOTTOM
+          anchorLocation: SC.ANCHOR_BOTTOM,
+          childViews: 'editLearner'.w(),
+          
+          editLearner: SC.ButtonView.design({
+            layout: { width: 50, top: 4, left: 7 },
+            titleMinWidth: 0,
+            title: 'Edit'
+          })
         })
       })
     })
