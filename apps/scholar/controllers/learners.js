@@ -13,6 +13,5 @@
 Scholar.learnersController = SC.ArrayController.create(
 /** @scope Scholar.learnersController.prototype */ {
 
-  // TODO: Add your own code here.
-
+  orderBy: 'lastName'
 }) ;
