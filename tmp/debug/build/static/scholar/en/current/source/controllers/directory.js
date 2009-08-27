@@ -13,12 +13,24 @@
 Scholar.directoryController = SC.ObjectController.create(
 /** @scope Scholar.directoryController.prototype */ {
 
-  nowShowing: 'Scholar.directoryPage.showDetails',
+  nowShowing: 'Scholar.directoryPage.showLearner',
   
-  showDetails: function() {
-    this.set('nowShowing', 'Scholar.directoryPage.showDetails');    
+  showLearner: function() {
+    this.set('nowShowing', 'Scholar.directoryPage.showLearner');    
+  }.observes('Scholar.learnersController.selection'),
+  editLearner: function() {
+    this.set('nowShowing', 'Scholar.directoryPage.editLearner');    
   },
-  editDetails: function() {
-    this.set('nowShowing', 'Scholar.directoryPage.editDetails');    
+  newLearner: function() {
+    var new_learner = Scholar.store.createRecord(Scholar.Learner, {lastName: "last name", firstName: 'first name'});
+    Scholar.learnersController.set('currentLearner', new_learner);
+    this.set('nowShowing', 'Scholar.directoryPage.newLearner');
   },
+  createLearner: function () {
+    var new_learner;
+    new_learner = Scholar.learnerController.get('content');
+    Scholar.learnersController.addObject(new_learner);
+    Scholar.learnersController.selectObject(new_learner);
+    Scholar.directoryController.set('nowShowing', 'Scholar.directoryPage.showLearner');
+  }  
 }) ;

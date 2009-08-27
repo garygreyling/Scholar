@@ -13,6 +13,5 @@
 Scholar.learnerController = SC.ObjectController.create(
 /** @scope Scholar.learnerController.prototype */ {
 
-  contentBinding: 'Scholar.learnersController.selection'
-
+  contentBinding: 'Scholar.learnersController.currentLearner',
 }) ;

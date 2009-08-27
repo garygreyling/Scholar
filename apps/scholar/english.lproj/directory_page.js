@@ -26,12 +26,12 @@ Scholar.directoryPage = SC.Page.design({
       topLeftMaxThickness: 200,
       topLeftView: SC.ScrollView.design({
         hasHorizantalScroller: NO,
-      
+        
         contentView: SC.View.design({
           childViews: 'listView toolbar'.w(),
           backgroundColor: 'white', 
           
-          listView: SC.ListView.design({  
+          listView: SC.ListView.design({ 
             contentBinding: 'Scholar.learnersController.arrangedObjects',
             selectionBinding: 'Scholar.learnersController.selection',
             contentValueKey: 'surnameWithInitials'
@@ -43,7 +43,9 @@ Scholar.directoryPage = SC.Page.design({
             addLearner: SC.ButtonView.design({
               layout: { width: 50, top: 4, left: 4 },
               titleMinWidth: 0,
-              title: 'Add'
+              title: 'Add',
+              action: "newLearner",
+              target: "Scholar.directoryController"
             })
           })
         })
@@ -57,7 +59,7 @@ Scholar.directoryPage = SC.Page.design({
     })
   }),
   
-  showDetails: SC.View.design({
+  showLearner: SC.View.design({
     childViews: 'firstName lastName dateOfBirth cellNumber toolbar'.w(),
     backgroundColor: 'white',
 
@@ -89,32 +91,19 @@ Scholar.directoryPage = SC.Page.design({
         layout: { width: 50, top: 4, left: 7 },
         titleMinWidth: 0,
         title: 'Edit',
-        action: "editDetails",
+        action: "editLearner",
         target: "Scholar.directoryController"
       })
     })
   }),
   
-  editDetails: SC.View.design({
-    childViews: 'firstName lastName dateOfBirth cellNumber toolbar'.w(),
+  editLearner: SC.View.design({
+    childViews: 'learnerForm toolbar'.w(),
     backgroundColor: 'white',
 
-    firstName: SC.TextFieldView.design({
-      valueBinding: "Scholar.learnerController.firstName",
-      layout: { height: 21, top: 5, left: 10, width: 100 }
+    learnerForm: Scholar.LearnerFormView.design({
     }),
-    lastName: SC.TextFieldView.design({
-      valueBinding: "Scholar.learnerController.lastName",
-      layout: { height: 21, top: 27, left: 10, width: 100 }
-    }),
-    dateOfBirth: SC.TextFieldView.design({
-      valueBinding: "Scholar.learnerController.dateOfBirth",
-      layout: { height: 21, top: 49, left: 10, width: 100 }
-    }),
-    cellNumber: SC.TextFieldView.design({
-      valueBinding: "Scholar.learnerController.cellNumber",
-      layout: { height: 21, top: 71, left: 10, width: 100 }
-    }),
+    
     toolbar: SC.ToolbarView.design({
       anchorLocation: SC.ANCHOR_BOTTOM,
       childViews: 'showLearner'.w(),
@@ -123,7 +112,28 @@ Scholar.directoryPage = SC.Page.design({
         layout: { width: 50, top: 4, left: 7 },
         titleMinWidth: 0,
         title: 'Done',
-        action: "showDetails",
+        action: "showLearner",
+        target: "Scholar.directoryController"
+      })
+    })
+  }),
+  
+  newLearner: SC.View.design({
+    childViews: 'learnerForm toolbar'.w(),
+    backgroundColor: 'white',
+
+    learnerForm: Scholar.LearnerFormView.design({
+    }),
+    
+    toolbar: SC.ToolbarView.design({
+      anchorLocation: SC.ANCHOR_BOTTOM,
+      childViews: 'showLearner'.w(),
+      
+      showLearner: SC.ButtonView.design({
+        layout: { width: 65, top: 4, left: 7 },
+        titleMinWidth: 0,
+        title: 'Create',
+        action: "createLearner",
         target: "Scholar.directoryController"
       })
     })
