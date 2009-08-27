@@ -24,29 +24,29 @@ Scholar.directoryPage = SC.Page.design({
       
       topLeftMinThickness: 100,
       topLeftMaxThickness: 200,
-      topLeftView: SC.ScrollView.design({
-        hasHorizantalScroller: NO,
-        
-        contentView: SC.View.design({
-          childViews: 'listView toolbar'.w(),
-          backgroundColor: 'white', 
-          
-          listView: SC.ListView.design({ 
+      topLeftView: SC.View.design({
+        childViews: 'scrollView toolbar'.w(),
+        backgroundColor: 'white',
+      
+        scrollView: SC.ScrollView.design({
+          layout: { top: 0, left: 0, right: 0, bottom: 0 },
+          contentView: SC.ListView.design({ 
             contentBinding: 'Scholar.learnersController.arrangedObjects',
             selectionBinding: 'Scholar.learnersController.selection',
             contentValueKey: 'surnameWithInitials'
-          }),
-          toolbar: SC.ToolbarView.design({
-            anchorLocation: SC.ANCHOR_BOTTOM,
-            childViews: 'addLearner'.w(),
-            
-            addLearner: SC.ButtonView.design({
-              layout: { width: 50, top: 4, left: 4 },
-              titleMinWidth: 0,
-              title: 'Add',
-              action: "newLearner",
-              target: "Scholar.directoryController"
-            })
+          })
+        }),
+        
+        toolbar: SC.ToolbarView.design({
+          anchorLocation: SC.ANCHOR_BOTTOM,
+          childViews: 'addLearner'.w(),
+          
+          addLearner: SC.ButtonView.design({
+            layout: { width: 50, top: 4, left: 4 },
+            titleMinWidth: 0,
+            title: 'Add',
+            action: "newLearner",
+            target: "Scholar.directoryController"
           })
         })
       }),
