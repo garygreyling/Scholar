@@ -23,7 +23,6 @@ Scholar.main = function main() {
   // This will make your app come alive!
   var learners = Scholar.store.findAll(Scholar.Learner);
   Scholar.learnersController.set('content', learners);
-
   // TODO: Set the content property on your primary controller
   // ex: .contactsController.set('content',.contacts);
 

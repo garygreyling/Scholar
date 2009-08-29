@@ -17,7 +17,7 @@ Scholar.learnersController = SC.ArrayController.create(
   currentLearner: null,
 
   _selectionHasChanged: function () {
-    var a = this.get('selection');
-    this.set('currentLearner', a);
+    var selected_leaner = this.get('selection');
+    this.set('currentLearner', selected_leaner);
   }.observes('selection')
 }) ;

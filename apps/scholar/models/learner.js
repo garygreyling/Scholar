@@ -19,8 +19,10 @@ Scholar.Learner = SC.Record.extend(
   dateOfBirth: SC.Record.attr(String),
   cellNumber: SC.Record.attr(String),
   surnameWithInitials: function() {
-    return this.get('lastName') + ' ' + this.get('firstName').charAt(0);
+    return this.get('lastName') + ' ' + this.get('firstName').charAt(0)
   }.property('firstName', 'lastName'),
 
-  courses: SC.Record.toMany('Scholar.Course')
+  enrollments: SC.Record.toMany('Scholar.Enrollment'),
+  outcomes: SC.Record.toMany('Scholar.Outcome')
+  
 }) ;

@@ -14,22 +14,56 @@ Scholar.directoryPage = SC.Page.design({
     childViews: 'directory toolbar'.w(),
     
     toolbar: SC.ToolbarView.design({
-      anchorLocation: SC.ANCHOR_TOP
+      childViews: 'centerButtons'.w(),
+      anchorLocation: SC.ANCHOR_TOP,
+
+      centerButtons: SC.SegmentedView.design({
+          layout: { top: 3 },
+          valueBinding: 'Scholar.directoryController.currentView',
+
+          items: [
+            { title: "Personal Details", value: 'personal', target: "Scholar.directoryController", action: 'showLearner' },
+            { title: "Educational Details", value: 'educational', target: "Scholar.directoryController", action: 'showEducationalDetails' }
+          ],
+          
+          itemValueKey: 'value',
+          itemTitleKey: 'title',
+          itemTargetKey: 'target',
+          itemActionKey: 'action'
+      })  
     }),
+
     directory: SC.SplitView.design({
-      layout: { left: 0, top: 32, right: 0, bottom: 0 },
-      defaultThickness: 200, 
+      layout: { left: 0, top: 33, right: 0, bottom: 0 },
       layoutDirection: SC.LAYOUT_HORIZONTAL,
       canCollapseViews: NO,
       
       topLeftMinThickness: 100,
       topLeftMaxThickness: 200,
-      topLeftView: SC.View.design({
-        childViews: 'scrollView toolbar'.w(),
-        backgroundColor: 'white',
       
-        scrollView: SC.ScrollView.design({
-          layout: { top: 0, left: 0, right: 0, bottom: 32 },
+      topLeftView: SC.View.design({
+        childViews: 'listTitle scrollView toolbar'.w(),
+        backgroundColor: 'white',
+        
+        listTitle: SC.View.design(SC.Border, {
+          layout: { top: 0, left: 0, right: 0, height: 18 },
+          childViews: 'listLabel'.w(),
+          backgroundColor: '#DDD',
+          borderStyle: SC.BORDER_BOTTOM,
+          
+          listLabel: SC.LabelView.design({
+            layout: { left: 0, right: 0, top: 0 },
+            classNames: ['list-title'],
+
+            textAlign: SC.ALIGN_CENTER,
+            value: 'Learners'
+          })
+        }),
+      
+        scrollView: SC.ScrollView.design(SC.Border,{
+          layout: { top: 19, left: 0, right: 0, bottom: 32 },
+          borderStyle: SC.BORDER_NONE,
+          
           contentView: SC.ListView.design({ 
             contentBinding: 'Scholar.learnersController.arrangedObjects',
             selectionBinding: 'Scholar.learnersController.selection',
@@ -54,76 +88,181 @@ Scholar.directoryPage = SC.Page.design({
       dividerView: SC.SplitDividerView,
            
       bottomRightView: SC.ContainerView.design({
-         nowShowingBinding: 'Scholar.directoryController.nowShowing'
+        layout: { top: 3, left: 10, right: 1 },
+        backgroundColor: '#EEE',
+        nowShowingBinding: 'Scholar.directoryController.nowShowing'
       })
     })
   }),
   
-  showLearner: SC.View.design({
-    childViews: 'firstName lastName dateOfBirth cellNumber toolbar'.w(),
-    backgroundColor: 'white',
+  // different views
 
-    firstName: SC.LabelView.design({
-      valueBinding: "Scholar.learnerController.firstName",
-      layout: { left: 10, top: 5 },
-      tagName: 'p'
-    }),
-    lastName: SC.LabelView.design({
-      valueBinding: "Scholar.learnerController.lastName",
-      layout: { left: 10, top: 25 },
-      tagName: 'p'
-    }),
-    dateOfBirth: SC.LabelView.design({
-      valueBinding: "Scholar.learnerController.dateOfBirth",
-      layout: { left: 10, top: 45 },
-      tagName: 'p'
-    }),
-    cellNumber: SC.LabelView.design({
-      valueBinding: "Scholar.learnerController.cellNumber",
-      layout: { left: 10, top: 65 },
-      tagName: 'p'
-    }),
-    toolbar: SC.ToolbarView.design({
-      anchorLocation: SC.ANCHOR_BOTTOM,
-      childViews: 'editLearner'.w(),
+  personalDetails: SC.Page.design({
+    show: SC.Page.design({ 
+      page: SC.View.design({
+        childViews: 'firstName lastName dateOfBirth cellNumber toolbar'.w(),
+        backgroundColor: 'white',
+
+        firstName: SC.LabelView.design({
+          valueBinding: "Scholar.learnerController.firstName",
+          layout: { left: 10, top: 5 },
+          tagName: 'p'
+        }),
+        lastName: SC.LabelView.design({
+          valueBinding: "Scholar.learnerController.lastName",
+          layout: { left: 10, top: 25 },
+          tagName: 'p'
+        }),
+        dateOfBirth: SC.LabelView.design({
+          valueBinding: "Scholar.learnerController.dateOfBirth",
+          layout: { left: 10, top: 45 },
+          tagName: 'p'
+        }),
+        cellNumber: SC.LabelView.design({
+          valueBinding: "Scholar.learnerController.cellNumber",
+          layout: { left: 10, top: 65 },
+          tagName: 'p'
+        }),
+        toolbar: SC.ToolbarView.design({
+          anchorLocation: SC.ANCHOR_BOTTOM,
+          childViews: 'editLearner'.w(),
       
-      editLearner: SC.ButtonView.design({
-        layout: { width: 50, top: 4, left: 7 },
-        titleMinWidth: 0,
-        title: 'Edit',
-        action: "editLearner",
-        target: "Scholar.directoryController"
+          editLearner: SC.ButtonView.design({
+            layout: { width: 50, top: 4, left: 7 },
+            titleMinWidth: 0,
+            title: 'Edit',
+            action: "editLearner",
+            target: "Scholar.directoryController"
+          })
+        })
       })
-    })
-  }),
-  
-  editLearner: SC.View.design({
-    childViews: 'learnerForm toolbar'.w(),
-    backgroundColor: 'white',
-
-    learnerForm: Scholar.LearnerFormView.design({
     }),
     
-    toolbar: SC.ToolbarView.design({
-      anchorLocation: SC.ANCHOR_BOTTOM,
-      childViews: 'showLearner'.w(),
-      
-      showLearner: SC.ButtonView.design({
-        layout: { width: 50, top: 4, left: 7 },
-        titleMinWidth: 0,
-        title: 'Done',
-        action: "showLearner",
-        target: "Scholar.directoryController"
+    edit: SC.Page.design({ 
+      page: SC.View.design({
+        childViews: 'learnerForm toolbar'.w(),
+        backgroundColor: 'white',
+
+        learnerForm: Scholar.LearnerFormView,
+
+        toolbar: SC.ToolbarView.design({
+          anchorLocation: SC.ANCHOR_BOTTOM,
+          childViews: 'showLearner'.w(),
+
+          showLearner: SC.ButtonView.design({
+            layout: { width: 50, top: 4, left: 7 },
+            titleMinWidth: 0,
+            title: 'Done',
+            action: "showLearner",
+            target: "Scholar.directoryController"
+          })
+        })
       })
     })
   }),
   
+  educationalDetails: SC.Page.design({
+    show: SC.Page.design({ 
+      page: SC.SplitView.design({
+        layout: { left: 0, top: 0, right: 0, bottom: 0 },
+        layoutDirection: SC.LAYOUT_HORIZONTAL,
+        canCollapseViews: NO,
+
+        topLeftMinThickness: 100,
+        topLeftMaxThickness: 200,
+
+        topLeftView: SC.View.design({
+          childViews: 'listTitle scrollView toolbar'.w(),
+          backgroundColor: 'white',
+
+          listTitle: SC.View.design(SC.Border, {
+            layout: { top: 0, left: 0, right: 0, height: 18 },
+            childViews: 'listLabel'.w(),
+            backgroundColor: '#DDD',
+            borderStyle: SC.BORDER_BOTTOM,
+
+            listLabel: SC.LabelView.design({
+              layout: { left: 0, right: 0, top: 0 },
+              classNames: ['list-title'],
+
+              textAlign: SC.ALIGN_CENTER,
+              value: 'Courses'
+            })
+          }),
+
+          scrollView: SC.ScrollView.design(SC.Border,{
+            layout: { top: 19, left: 0, right: 0, bottom: 32 },
+            borderStyle: SC.BORDER_NONE,
+
+            contentView: SC.ListView.design({ 
+              contentBinding: 'Scholar.enrollmentsController.arrangedObjects',
+              selectionBinding: 'Scholar.enrollmentsController.selection',
+              contentValueKey: 'description'
+            })
+          }),
+
+          toolbar: SC.ToolbarView.design({
+            anchorLocation: SC.ANCHOR_BOTTOM,
+            childViews: 'addLearner'.w(),
+
+            addLearner: SC.ButtonView.design({
+              layout: { width: 55, top: 4, left: 6 },
+              titleMinWidth: 0,
+              title: 'Enroll',
+              action: "newLearner",
+              target: "Scholar.directoryController"
+            })
+          })
+        }),
+
+        dividerView: SC.SplitDividerView,
+
+        bottomRightView: SC.ContainerView.design({
+          layout: { top: 3, left: 10, right: 1 },
+          backgroundColor: '#EEE'
+        })
+      })
+    }),
+    
+    edit: SC.Page.design({ 
+      page: SC.View.design({
+        childViews: 'learnerForm toolbar'.w(),
+        backgroundColor: 'white',
+
+        learnerForm: Scholar.LearnerFormView,
+
+        toolbar: SC.ToolbarView.design({
+          anchorLocation: SC.ANCHOR_BOTTOM,
+          childViews: 'showLearner'.w(),
+
+          showLearner: SC.ButtonView.design({
+            layout: { width: 50, top: 4, left: 7 },
+            titleMinWidth: 0,
+            title: 'Done',
+            action: "showLearner",
+            target: "Scholar.directoryController"
+          })
+        })
+      }),
+
+      buttons: SC.View.design({
+        childViews: 'buttons'.w(),
+        buttons: SC.ButtonView.design({
+          layout: { width: 50, top: 4, left: 7 },
+          titleMinWidth: 0,
+          title: 'Edit',
+          action: "editLearner",
+          target: "Scholar.directoryController"
+        })
+      })
+    })
+  }),
+
   newLearner: SC.View.design({
     childViews: 'learnerForm toolbar'.w(),
     backgroundColor: 'white',
 
-    learnerForm: Scholar.LearnerFormView.design({
-    }),
+    learnerForm: Scholar.LearnerFormView,
     
     toolbar: SC.ToolbarView.design({
       anchorLocation: SC.ANCHOR_BOTTOM,

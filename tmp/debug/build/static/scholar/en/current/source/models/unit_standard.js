@@ -11,9 +11,16 @@
   @extends SC.Record
   @version 0.1
 */
-Scholar.UnitStandard = SC.Record.extend(
+Scholar.UnitStandard = SC.Record.extend( SC.TreeItemContent,
 /** @scope Scholar.UnitStandard.prototype */ {
 
-  // TODO: Add your own code here.
-
+  code: SC.Record.attr(String),
+  
+  // TreeController API requirements
+  count: 0, // no unit_standards in a unit_standard...
+  treeItemChildren: [],
+  treeItemIsExpanded: NO,
+  description: function () {
+    return this.get('code')
+  }.property('code')
 }) ;
