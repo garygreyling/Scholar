@@ -1,5 +1,5 @@
 // ==========================================================================
-// Project:   Scholar.enrollmentController
+// Project:   Scholar.outcomeController
 // Copyright: ©2009 My Company, Inc.
 // ==========================================================================
 /*globals Scholar */
@@ -10,6 +10,7 @@
 
   @extends SC.ObjectController
 */
-Scholar.enrollmentController = SC.ObjectController.create(
-/** @scope Scholar.enrollmentController.prototype */ {
+Scholar.outcomeController = SC.ObjectController.create(
+/** @scope Scholar.outcomeController.prototype */ {
+
 }) ;

@@ -40,7 +40,7 @@ Scholar.directoryController = SC.ObjectController.create(
   
   showEducationalDetails: function (){
     this.set('nowShowing', 'Scholar.directoryPage.educationalDetails.show.page');    
-    this.set('currentView', 'educational');     
+    this.set('currentView', 'educational');  
   }
     
 }) ;

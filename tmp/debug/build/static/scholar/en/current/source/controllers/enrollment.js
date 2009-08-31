@@ -12,5 +12,4 @@
 */
 Scholar.enrollmentController = SC.ObjectController.create(
 /** @scope Scholar.enrollmentController.prototype */ {
-
 }) ;

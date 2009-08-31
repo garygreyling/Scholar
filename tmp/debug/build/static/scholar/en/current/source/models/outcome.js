@@ -14,6 +14,6 @@
 Scholar.Outcome = SC.Record.extend(
 /** @scope Scholar.Outcome.prototype */ {
 
-  // TODO: Add your own code here.
+  status: SC.Record.attr(String)
 
 }) ;
